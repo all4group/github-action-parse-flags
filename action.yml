@@ -1,0 +1,18 @@
+name: "Parse flags"
+description: "Parse flags from 'pull request' or 'push'"
+
+branding:
+  icon: "cloud"
+  color: "blue"
+
+outputs:
+  flags:
+    description: "Parsed flags"
+    value: ${{ steps.parser.outputs.flags }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: parser
+      run: echo "::set-output name=flags::$(python ${{ github.action_path }}/parser.py)"
+      shell: bash
